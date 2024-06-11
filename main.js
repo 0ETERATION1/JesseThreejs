@@ -8,25 +8,29 @@ const scene = new THREE.Scene()
 const cubeGeometry = new THREE.BoxGeometry(1,1,1)
 const cubeMaterial = new THREE.MeshBasicMaterial({color: "red"})
 
-const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
+const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh2.position.x = 2;
+const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh3.position.x = -2;
 
-const geometry = new THREE.SphereGeometry(1.5,10,10);
-const material = new THREE.MeshBasicMaterial({color: 'yellow'});
+// creating a group
+const group = new THREE.Group();
+group.add(cubeMesh);
+group.add(cubeMesh2);
+group.add(cubeMesh3);
 
-const mesh = new THREE.Mesh(geometry, material);
+// adding the group to the scene
+scene.add(group);
 
-mesh.position.set(2, 0, 0);
 
+//scene.add(cubeMesh);
 
-cubeMesh.add(mesh);
+//cubeMesh.position.set(1,1,1);
 
-scene.add(cubeMesh);
+// const tempVector = new THREE.Vector3(0,3,0);
 
-cubeMesh.position.set(1,1,1);
-
-const tempVector = new THREE.Vector3(0,3,0);
-
-cubeMesh.position.copy(tempVector);
+// cubeMesh.position.copy(tempVector);
 
 const helper = new THREE.AxesHelper(5);
 scene.add(helper);
@@ -49,7 +53,7 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 // 	200
 // )
 
-camera.position.z = 15;
+camera.position.z = 5;
 
 console.log(cubeMesh.position.distanceTo(camera.position));
 
