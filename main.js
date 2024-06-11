@@ -2,11 +2,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 // initialize the scene
-const scene = new THREE.Scene()
+const scene = new THREE.Scene();
+const axisHelper = new THREE.AxesHelper(2);
+const axisHelper2 = new THREE.AxesHelper(2);
+const axisHelper3 = new THREE.AxesHelper(2);
 
 // add objects to the scene
-const cubeGeometry = new THREE.BoxGeometry(1,1,1)
-const cubeMaterial = new THREE.MeshBasicMaterial({color: "red", wireframe: true})
+const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+const cubeMaterial = new THREE.MeshBasicMaterial({color: "red", wireframe: true});
 
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cubeMesh.position.y = -1;
@@ -18,14 +21,17 @@ cubeMesh3.position.x = -2;
 // creating a group
 const group = new THREE.Group();
 group.add(cubeMesh);
+cubeMesh.add(axisHelper);
 group.add(cubeMesh2);
+cubeMesh2.add(axisHelper2);
 group.add(cubeMesh3);
+cubeMesh3.add(axisHelper3);
 group.position.y = 1;
 group.scale.addScalar(2);
 
 // adding the group to the scene
 scene.add(group);
-
+// group.add(axisHelper);
 
 //scene.add(cubeMesh);
 
@@ -35,8 +41,8 @@ scene.add(group);
 
 // cubeMesh.position.copy(tempVector);
 
-const helper = new THREE.AxesHelper(5);
-scene.add(helper);
+
+//scene.add(helper);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
@@ -56,7 +62,7 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 // 	200
 // )
 
-camera.position.z = 15;
+camera.position.z = 20;
 
 console.log(cubeMesh.position.distanceTo(camera.position));
 
