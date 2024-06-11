@@ -12,9 +12,12 @@ const cubeMesh = new THREE.Mesh(
   cubeGeometry,
   cubeMaterial
 )
-scene.add(cubeMesh)
+scene.add(cubeMesh);
 
-cubeMesh.position.x = -1;
+const tempVector = new THREE.Vector3(0,3,0);
+
+cubeMesh.position.copy(tempVector);
+
 const helper = new THREE.AxesHelper(5);
 scene.add(helper);
 
@@ -36,7 +39,11 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 // 	200
 // )
 
-camera.position.z = 5
+camera.position.z = 15;
+
+console.log(cubeMesh.position.distanceTo(camera.position));
+
+cubeMesh.scale.y = 2;
 
 // initialize the renderer
 const canvas = document.querySelector('canvas.threejs')
