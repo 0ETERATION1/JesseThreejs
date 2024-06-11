@@ -1,1 +1,3 @@
-# JesseThreejs
+# ThreeJS Personal Site
+
+Daily Updates!
