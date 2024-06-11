@@ -9,6 +9,7 @@ const cubeGeometry = new THREE.BoxGeometry(1,1,1)
 const cubeMaterial = new THREE.MeshBasicMaterial({color: "red"})
 
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cubeMesh.position.y = -1;
 const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cubeMesh2.position.x = 2;
 const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -19,6 +20,8 @@ const group = new THREE.Group();
 group.add(cubeMesh);
 group.add(cubeMesh2);
 group.add(cubeMesh3);
+group.position.y = 1;
+group.scale.addScalar(2);
 
 // adding the group to the scene
 scene.add(group);
@@ -53,7 +56,7 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 // 	200
 // )
 
-camera.position.z = 5;
+camera.position.z = 15;
 
 console.log(cubeMesh.position.distanceTo(camera.position));
 
