@@ -8,11 +8,21 @@ const scene = new THREE.Scene()
 const cubeGeometry = new THREE.BoxGeometry(1,1,1)
 const cubeMaterial = new THREE.MeshBasicMaterial({color: "red"})
 
-const cubeMesh = new THREE.Mesh(
-  cubeGeometry,
-  cubeMaterial
-)
+const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial)
+
+const geometry = new THREE.SphereGeometry(1.5,10,10);
+const material = new THREE.MeshBasicMaterial({color: 'yellow'});
+
+const mesh = new THREE.Mesh(geometry, material);
+
+mesh.position.set(2, 0, 0);
+
+
+cubeMesh.add(mesh);
+
 scene.add(cubeMesh);
+
+cubeMesh.position.set(1,1,1);
 
 const tempVector = new THREE.Vector3(0,3,0);
 
@@ -43,7 +53,7 @@ camera.position.z = 15;
 
 console.log(cubeMesh.position.distanceTo(camera.position));
 
-cubeMesh.scale.y = 2;
+//cubeMesh.scale.y = 2;
 
 // initialize the renderer
 const canvas = document.querySelector('canvas.threejs')
