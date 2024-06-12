@@ -121,8 +121,10 @@ const renderloop = () => {
 
 	// creating some animations
 	group.rotation.y += THREE.MathUtils.degToRad(1) * delta * 5;
-	//console.log(delta);
+	cubeMesh.scale.x = Math.sin(currentTime) + 2;
 
+	group.scale.y = Math.sin(currentTime) + 2;
+ 
 	// required if controls.enableDamping or controls.autoRotate are set to true
 	// controls.update(); should always go first
 	controls.update();
