@@ -1,5 +1,10 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { Pane } from 'tweakpane';
+
+// creating pane
+const pane = new Pane();
+console.log(pane);
 
 // initialize the scene
 const scene = new THREE.Scene();
@@ -9,7 +14,21 @@ const axisHelper3 = new THREE.AxesHelper(2);
 
 // add objects to the scene
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
+
+// creating a custom geometry
+// const vertices = new Float32Array( [
+// 	// vertices of my 2d triangle!
+// 	0, 0, 0,
+// 	0, 2, 0,
+// 	2, 0, 0
+// ])
+
+// const geometry = new THREE.BufferGeometry();
+// geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 const cubeMaterial = new THREE.MeshBasicMaterial({color: "red", wireframe: true});
+// const mesh = new THREE.Mesh(geometry, cubeMaterial);
+
+//scene.add(mesh);
 
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cubeMesh.position.y = -1;
@@ -18,7 +37,7 @@ cubeMesh2.position.x = 2;
 const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cubeMesh3.position.x = -2;
 
-// creating a group
+//creating a group
 const group = new THREE.Group();
 group.add(cubeMesh);
 cubeMesh.add(axisHelper);
@@ -29,20 +48,12 @@ cubeMesh3.add(axisHelper3);
 group.position.y = 1;
 group.scale.addScalar(2);
 
-// adding the group to the scene
+// // adding the group to the scene
 scene.add(group);
-// group.add(axisHelper);
-
-//scene.add(cubeMesh);
-
-//cubeMesh.position.set(1,1,1);
-
-// const tempVector = new THREE.Vector3(0,3,0);
-
-// cubeMesh.position.copy(tempVector);
 
 
-//scene.add(helper);
+
+scene.add(axisHelper);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
@@ -64,9 +75,9 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 
 camera.position.z = 30;
 
-console.log(cubeMesh.position.distanceTo(camera.position));
+//console.log(cubeMesh.position.distanceTo(camera.position));
 
-//cubeMesh.scale.y = 2;
+cubeMesh.scale.y = 2;
 
 // initialize the renderer
 const canvas = document.querySelector('canvas.threejs')
