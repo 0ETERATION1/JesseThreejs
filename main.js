@@ -62,7 +62,7 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 // 	200
 // )
 
-camera.position.z = 20;
+camera.position.z = 30;
 
 console.log(cubeMesh.position.distanceTo(camera.position));
 
@@ -83,7 +83,7 @@ renderer.setSize(window.innerWidth, window.innerHeight)
 // orbit controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true;
-controls.autoRotate = true;
+//controls.autoRotate = true;
 
 // check for window resizing
 window.addEventListener('resize', () => {
@@ -109,6 +109,9 @@ window.addEventListener('resize', () => {
 
 
 const renderloop = () => {
+
+	// creating some animations
+	group.rotation.y += THREE.MathUtils.degToRad(1);
 
 	// required if controls.enableDamping or controls.autoRotate are set to true
 	// controls.update(); should always go first
