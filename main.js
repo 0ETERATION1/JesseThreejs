@@ -107,11 +107,21 @@ window.addEventListener('resize', () => {
 // 	window.requestAnimationFrame(renderloop);
 // }
 
+const clock = new THREE.Clock();
+
+let previousTime = 0;
 
 const renderloop = () => {
 
+	
+	
+	const currentTime = clock.getElapsedTime();
+	const delta = currentTime - previousTime;
+	previousTime = currentTime;
+
 	// creating some animations
-	group.rotation.y += THREE.MathUtils.degToRad(1);
+	group.rotation.y += THREE.MathUtils.degToRad(1) * delta * 5;
+	//console.log(delta);
 
 	// required if controls.enableDamping or controls.autoRotate are set to true
 	// controls.update(); should always go first
