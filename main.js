@@ -34,6 +34,7 @@ cubeMaterial.transparent = true;
 cubeMaterial.opacity = 0.5;
 const fog = new THREE.Fog('white', 1, 10);
 scene.fog = fog;
+scene.background = new THREE.Color('white');
 
 //scene.add(mesh);
 
