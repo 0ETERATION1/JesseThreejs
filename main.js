@@ -25,33 +25,41 @@ const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 
 // const geometry = new THREE.BufferGeometry();
 // geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-const cubeMaterial = new THREE.MeshBasicMaterial({color: "red", wireframe: true});
+const cubeMaterial = new THREE.MeshBasicMaterial(
+	{color: "limeGreen", 
+	 transparent: true,
+	 opacity: 0.5,
+	});
 // const mesh = new THREE.Mesh(geometry, cubeMaterial);
 
 //scene.add(mesh);
 
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
-cubeMesh.position.y = -1;
-const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
-cubeMesh2.position.x = 2;
-const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
-cubeMesh3.position.x = -2;
+const mesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+mesh2.position.x = 1.5;
+//cubeMesh.position.y = -1;
+// const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+// cubeMesh2.position.x = 2;
+// const cubeMesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+// cubeMesh3.position.x = -2;
 
-//creating a group
-const group = new THREE.Group();
-group.add(cubeMesh);
-cubeMesh.add(axisHelper);
-group.add(cubeMesh2);
-cubeMesh2.add(axisHelper2);
-group.add(cubeMesh3);
-cubeMesh3.add(axisHelper3);
-group.position.y = 1;
-group.scale.addScalar(2);
+// //creating a group
+// const group = new THREE.Group();
+// group.add(cubeMesh);
+// cubeMesh.add(axisHelper);
+// group.add(cubeMesh2);
+// cubeMesh2.add(axisHelper2);
+// group.add(cubeMesh3);
+// cubeMesh3.add(axisHelper3);
+// group.position.y = 1;
+// group.scale.addScalar(2);
 
 // // adding the group to the scene
-scene.add(group);
+//scene.add(group);
 
 
+scene.add(cubeMesh);
+scene.add(mesh2);
 
 scene.add(axisHelper);
 
@@ -73,11 +81,11 @@ const aspectRatio = window.innerWidth / window.innerHeight;
 // 	200
 // )
 
-camera.position.z = 30;
+camera.position.z = 5;
 
 //console.log(cubeMesh.position.distanceTo(camera.position));
 
-cubeMesh.scale.y = 2;
+//cubeMesh.scale.y = 2;
 
 // initialize the renderer
 const canvas = document.querySelector('canvas.threejs')
@@ -131,10 +139,10 @@ const renderloop = () => {
 	previousTime = currentTime;
 
 	// creating some animations
-	group.rotation.y += THREE.MathUtils.degToRad(1) * delta * 5;
-	cubeMesh.scale.x = Math.sin(currentTime) + 2;
+	//group.rotation.y += THREE.MathUtils.degToRad(1) * delta * 5;
+	//cubeMesh.scale.x = Math.sin(currentTime) + 2;
 
-	group.scale.y = Math.sin(currentTime) + 2;
+	//group.scale.y = Math.sin(currentTime) + 2;
  
 	// required if controls.enableDamping or controls.autoRotate are set to true
 	// controls.update(); should always go first
