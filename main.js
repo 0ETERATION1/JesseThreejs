@@ -27,10 +27,13 @@ const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 // geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 const cubeMaterial = new THREE.MeshBasicMaterial(
 	{color: "limeGreen", 
-	 transparent: true,
-	 opacity: 0.5,
 	});
 // const mesh = new THREE.Mesh(geometry, cubeMaterial);
+
+cubeMaterial.transparent = true;
+cubeMaterial.opacity = 0.5;
+const fog = new THREE.Fog('white', 1, 10);
+scene.fog = fog;
 
 //scene.add(mesh);
 
