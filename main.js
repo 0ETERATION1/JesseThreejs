@@ -15,7 +15,7 @@ const axisHelper3 = new THREE.AxesHelper(2);
 // add objects to the scene
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 
-const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, .15, 100, 16);
+const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 
 // creating a custom geometry
 // const vertices = new Float32Array( [
@@ -32,15 +32,25 @@ const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, .15, 100, 16);
 // 	});
 
 
-const cubeMaterial = new THREE.MeshLambertMaterial();
+//const cubeMaterial = new THREE.MeshLambertMaterial();
+const cubeMaterial = new THREE.MeshPhongMaterial();
+cubeMaterial.shininess = 90;
+cubeMaterial.color = new THREE.Color('red');
+
+pane.addBinding(cubeMaterial, 'shininess', {
+	min: 0,
+	max: 100,
+	step: 1,
+});
+
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
 const mesh2 = new THREE.Mesh(torusKnotGeometry, cubeMaterial);
-cubeMesh.position.x = 1.5;
+mesh2.position.x = 1.5;
 
-const mesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
-scene.add(mesh3);
+// const mesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+// scene.add(mesh3);
 
-mesh3.position.set(5,5,5);
+//mesh3.position.set(5,5,5);
 
 
 
@@ -52,10 +62,10 @@ scene.add(mesh2);
 
 
 // initialize a light
-const light = new THREE.AmbientLight(0xffffff, 0.5);
+const light = new THREE.AmbientLight(0x404040, 1);
 scene.add(light);
 
-const pointLight = new THREE.PointLight(0xffffff, 100);
+const pointLight = new THREE.PointLight(0xffffff, 40);
 pointLight.position.set(5,5,5);
 scene.add(pointLight);
 // const mesh = new THREE.Mesh(geometry, cubeMaterial);
