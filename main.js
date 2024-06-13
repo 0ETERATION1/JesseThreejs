@@ -15,6 +15,8 @@ const axisHelper3 = new THREE.AxesHelper(2);
 // add objects to the scene
 const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 
+const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, .15, 100, 16);
+
 // creating a custom geometry
 // const vertices = new Float32Array( [
 // 	// vertices of my 2d triangle!
@@ -25,22 +27,50 @@ const cubeGeometry = new THREE.BoxGeometry(1,1,1);
 
 // const geometry = new THREE.BufferGeometry();
 // geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-const cubeMaterial = new THREE.MeshBasicMaterial(
-	{color: "limeGreen", 
-	});
+// const cubeMaterial = new THREE.MeshBasicMaterial(
+// 	{color: "limeGreen", 
+// 	});
+
+
+const cubeMaterial = new THREE.MeshLambertMaterial();
+const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
+const mesh2 = new THREE.Mesh(torusKnotGeometry, cubeMaterial);
+cubeMesh.position.x = 1.5;
+
+const mesh3 = new THREE.Mesh(cubeGeometry, cubeMaterial);
+scene.add(mesh3);
+
+mesh3.position.set(5,5,5);
+
+
+
+
+scene.add(cubeMesh);
+scene.add(mesh2);
+
+//scene.add(axisHelper);
+
+
+// initialize a light
+const light = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(light);
+
+const pointLight = new THREE.PointLight(0xffffff, 100);
+pointLight.position.set(5,5,5);
+scene.add(pointLight);
 // const mesh = new THREE.Mesh(geometry, cubeMaterial);
 
-cubeMaterial.transparent = true;
-cubeMaterial.opacity = 0.5;
-const fog = new THREE.Fog('white', 1, 10);
-scene.fog = fog;
-scene.background = new THREE.Color('white');
+// cubeMaterial.transparent = true;
+// cubeMaterial.opacity = 0.5;
+// cubeMaterial.fog = false;
+
+// const fog = new THREE.Fog('white', 1, 10);
+// scene.fog = fog;
+// scene.background = new THREE.Color('white');
 
 //scene.add(mesh);
 
-const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
-const mesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
-mesh2.position.x = 1.5;
+
 //cubeMesh.position.y = -1;
 // const cubeMesh2 = new THREE.Mesh(cubeGeometry, cubeMaterial);
 // cubeMesh2.position.x = 2;
@@ -62,10 +92,7 @@ mesh2.position.x = 1.5;
 //scene.add(group);
 
 
-scene.add(cubeMesh);
-scene.add(mesh2);
 
-scene.add(axisHelper);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
@@ -151,8 +178,9 @@ const renderloop = () => {
 	// required if controls.enableDamping or controls.autoRotate are set to true
 	// controls.update(); should always go first
 	controls.update();
-	renderer.render(scene, camera);
 	window.requestAnimationFrame(renderloop);
+
+	renderer.render(scene, camera);
 };
 
 renderloop();
