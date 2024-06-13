@@ -33,14 +33,21 @@ const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 
 
 //const cubeMaterial = new THREE.MeshLambertMaterial();
-const cubeMaterial = new THREE.MeshPhongMaterial();
-cubeMaterial.shininess = 90;
-cubeMaterial.color = new THREE.Color('red');
+const cubeMaterial = new THREE.MeshStandardMaterial();
+cubeMaterial.color = new THREE.Color('green');
+// cubeMaterial.shininess = 90;
+// cubeMaterial.color = new THREE.Color('red');
 
-pane.addBinding(cubeMaterial, 'shininess', {
+pane.addBinding(cubeMaterial, 'metalness', {
 	min: 0,
-	max: 100,
-	step: 1,
+	max: 1,
+	step: 0.1,
+});
+
+pane.addBinding(cubeMaterial, 'roughness', {
+	min: 0,
+	max: 1,
+	step: 0.1,
 });
 
 const cubeMesh = new THREE.Mesh(cubeGeometry, cubeMaterial);
@@ -65,7 +72,7 @@ scene.add(mesh2);
 const light = new THREE.AmbientLight(0x404040, 1);
 scene.add(light);
 
-const pointLight = new THREE.PointLight(0xffffff, 40);
+const pointLight = new THREE.PointLight(0xffffff, 200);
 pointLight.position.set(5,5,5);
 scene.add(pointLight);
 // const mesh = new THREE.Mesh(geometry, cubeMaterial);
