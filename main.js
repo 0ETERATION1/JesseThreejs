@@ -41,7 +41,7 @@ const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
 
 // initialize the texture
-const textureTest = textureLoader.load('./static/textures/badlands-boulders-bl/badlands-boulders_albedo.png')
+const textureTest = textureLoader.load('/textures/badlands-boulders-bl/badlands-boulders_albedo.png')
 textureTest.repeat.set(10,10);
 textureTest.wrapS = THREE.RepeatWrapping;
 textureTest.wrapT = THREE.RepeatWrapping;
