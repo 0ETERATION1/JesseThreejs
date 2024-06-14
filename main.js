@@ -31,6 +31,7 @@ const group = new THREE.Group();
 // initialize the material
 const material = new THREE.MeshBasicMaterial();
 material.map = textureTest;
+material.color = new THREE.Color('red');
 
 // initialize the mesh
 const cube = new THREE.Mesh(geometry, material);
