@@ -8,8 +8,30 @@ const pane = new Pane();
 // initialize the scene
 const scene = new THREE.Scene();
 
+// Create a loading manager
+const loadingManager = new THREE.LoadingManager();
+
+// Define loading event handlers
+loadingManager.onStart = function (url, itemsLoaded, itemsTotal) {
+    console.log(`Started loading file: ${url}.\nLoaded ${itemsLoaded} of ${itemsTotal} files.`);
+};
+
+loadingManager.onLoad = function () {
+    console.log('All textures loaded.');
+    // Start rendering only after all textures are loaded
+    
+};
+
+loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+    console.log(`Loading file: ${url}.\nLoaded ${itemsLoaded} of ${itemsTotal} files.`);
+};
+
+loadingManager.onError = function (url) {
+    console.log(`There was an error loading ${url}`);
+};
+
 // initialize the loader
-const textureLoader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader(loadingManager);
 
 // initialize the geometry
 const geometry = new THREE.BoxGeometry(1, 1, 1);
