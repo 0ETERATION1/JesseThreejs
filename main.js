@@ -8,12 +8,20 @@ const pane = new Pane();
 // initialize the scene
 const scene = new THREE.Scene();
 
+// initialize the loader
+const textureLoader = new THREE.TextureLoader();
+
 // initialize the geometry
 const geometry = new THREE.BoxGeometry(1, 1, 1);
 const torusKnotGeometry = new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16);
 const planeGeometry = new THREE.PlaneGeometry(1, 1);
 const sphereGeometry = new THREE.SphereGeometry(0.5, 32, 32);
 const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
+
+// initialize the texture
+const textureTest = textureLoader.load('static/textures/space-cruiser-panels2-bl/space-cruiser-panels2_roughness.png')
+console.log(textureTest);
+
 
 // initalize a group
 const group = new THREE.Group();
@@ -22,6 +30,7 @@ const group = new THREE.Group();
 
 // initialize the material
 const material = new THREE.MeshBasicMaterial();
+material.map = textureTest;
 
 // initialize the mesh
 const cube = new THREE.Mesh(geometry, material);
