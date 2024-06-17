@@ -67,11 +67,21 @@ const group = new THREE.Group();
 // initialize the material
 const material = new THREE.MeshStandardMaterial();
 material.map = textureTest;
-material.aoMap = badlandsAO;
+//material.aoMap = badlandsAO;
 material.displacementMap = badlandsHeight;
+material.displacementScale = 0.5;
 material.normalMap = badlandsNormal;
 material.roughnessMap = badlandsRoughness;
-//material.normalScale = new THREE.Vector2(1,1);
+
+const uv2 = new THREE.BufferAttribute(planeGeometry.attributes.uv.array, 2);
+planeGeometry.setAttribute('uv2', uv2);
+console.log(planeGeometry);
+material.aoMap = badlandsAO;
+material.aoMapIntensity = 0.2;
+
+pane.addBinding(material, 'aoMapIntensity', {min: 0, max: 1, step: 0.1})
+
+//material.normalScale = new THREE.Vector2(5,5);
 // material.color = new THREE.Color('red');
 
 // initialize the mesh
@@ -138,7 +148,7 @@ window.addEventListener("resize", () => {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-console.log(scene.children);
+//console.log(scene.children);
 
 // render the scene
 const renderloop = () => {
