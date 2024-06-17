@@ -42,9 +42,20 @@ const cylinderGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1, 32);
 
 // initialize the texture
 const textureTest = textureLoader.load('/textures/badlands-boulders-bl/badlands-boulders_albedo.png')
-textureTest.repeat.set(10,10);
+const badlandsAO = textureLoader.load('/textures/badlands-boulders-bl/badlands-boulders_ao.png')
+const badlandsHeight = textureLoader.load('/textures/badlands-boulders-bl/badlands-boulders_height.png')
+const badlandsNormal = textureLoader.load('/textures/badlands-boulders-bl/badlands-boulders_normal-ogl.png')
+const badlandsRoughness = textureLoader.load('/textures/badlands-boulders-bl/badlands-boulders_roughness.png')
+
+
+textureTest.repeat.set(25,20);
 textureTest.wrapS = THREE.RepeatWrapping;
 textureTest.wrapT = THREE.RepeatWrapping;
+textureTest.offset.x = 0.5;
+
+
+// textureTest.wrapS = THREE.MirroredRepeatWrapping;
+// textureTest.wrapT = THREE.MirroredRepeatWrapping;
 console.log(textureTest);
 
 
@@ -54,8 +65,13 @@ const group = new THREE.Group();
 
 
 // initialize the material
-const material = new THREE.MeshBasicMaterial();
+const material = new THREE.MeshStandardMaterial();
 material.map = textureTest;
+material.aoMap = badlandsAO;
+material.displacementMap = badlandsHeight;
+material.normalMap = badlandsNormal;
+material.roughnessMap = badlandsRoughness;
+//material.normalScale = new THREE.Vector2(1,1);
 // material.color = new THREE.Color('red');
 
 // initialize the mesh
@@ -86,10 +102,10 @@ cylinder.position.set(0,-1.5,0);
 
 
 // initialize the light
-const light = new THREE.AmbientLight(0xffffff, 0.4);
+const light = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(light);
 
-const pointLight = new THREE.PointLight(0xffffff, 1.2);
+const pointLight = new THREE.DirectionalLight(0xffffff, 1);
 pointLight.position.set(5, 5, 5);
 scene.add(pointLight);
 
