@@ -113,11 +113,20 @@ cylinder.position.set(0,-1.5,0);
 
 // initialize the light
 const light = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(light);
+//scene.add(light);
 
 const pointLight = new THREE.DirectionalLight(0xffffff, 1);
-pointLight.position.set(5, 5, 5);
+pointLight.position.set(20, 20, 3);
 scene.add(pointLight);
+
+const lightHelper = new THREE.DirectionalLightHelper(pointLight, 0.5);
+scene.add(lightHelper);
+
+pane.addBinding(pointLight, 'intensity', {
+	min: 0,
+	max: 1,
+	step: 0.01
+})
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
@@ -126,8 +135,9 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   2000
 );
-camera.position.z = 10;
-camera.position.y = 5;
+camera.position.z = 15;
+camera.position.y = 105;
+camera.position.x = 20;
 
 // initialize the renderer
 const canvas = document.querySelector("canvas.threejs");
