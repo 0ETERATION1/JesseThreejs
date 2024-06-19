@@ -112,7 +112,7 @@ cylinder.position.set(0,-1.5,0);
 
 
 // initialize the light
-const light = new THREE.AmbientLight(0xffffff, 0.5);
+const light = new THREE.AmbientLight(0xffffff, 1);
 //scene.add(light);
 
 const pointLight = new THREE.DirectionalLight(0xffffff, 1);
