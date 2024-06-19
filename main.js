@@ -42,11 +42,12 @@ const moonMaterial = new THREE.MeshBasicMaterial(
 const moon = new THREE.Mesh(sphereGeometry, moonMaterial);
 
 moon.scale.setScalar(0.3);
-moon.position.x = 12;
+moon.position.x = 2;
+earth.add(moon);
 
 scene.add(sun);
 scene.add(earth);
-scene.add(moon);
+
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
@@ -77,11 +78,26 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
+const clock = new THREE.Clock();
+
 // render loop
 const renderloop = () => {
-  controls.update();
-  renderer.render(scene, camera);
-  window.requestAnimationFrame(renderloop);
+
+	const elapsedTime = clock.getElapsedTime();
+
+	earth.rotation.y += 0.01;
+	earth.position.x = Math.sin(elapsedTime) * 10;
+	earth.position.z = Math.cos(elapsedTime) * 10;
+
+	moon.position.x = Math.sin(elapsedTime) * 2;
+	moon.position.z = Math.cos(elapsedTime) * 2;
+
+
+
+
+	controls.update();
+  	renderer.render(scene, camera);
+  	window.requestAnimationFrame(renderloop);
 };
 
 
