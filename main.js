@@ -177,7 +177,7 @@ const planetMeshes = planets.map((planet) => {
 	// 	moonMesh.scale.setScalar(moon.radius);
 	// 	moonMesh.position.x = moon.distance;
 	// 	planetMesh.add(moonMesh);
-	})
+	});
 	
 
 	return planetMesh;
@@ -234,8 +234,36 @@ window.addEventListener("resize", () => {
 
 const clock = new THREE.Clock();
 
+console.log(planets[3].moons[0].name);
+
 // render loop
 const renderloop = () => {
+
+	planetMeshes.forEach((planet, index) => {
+		planet.rotation.y += planets[index].speed;
+		planet.position.x = Math.sin(planet.rotation.y) * planets[index].distance;
+		planet.position.z = Math.cos(planet.rotation.y) * planets[index].distance;
+
+		
+		planet.children.forEach((moon, idx) => {
+			moon.rotation.y += planets[index].moons[idx].speed;
+			moon.position.x = Math.sin(moon.rotation.y) * planets[index].moons[idx].distance;
+			moon.position.z = Math.cos(moon.rotation.y) * planets[index].moons[idx].distance;
+
+
+		});
+
+
+		
+
+		// console.log(planets[index].speed);
+
+		// planetMeshes.forEach((moon, index) => {
+		// 	console.log(moon.children.);
+		// 	moon.rotation.y += 0.01;
+		// });
+	});
+	
 
 	// const elapsedTime = clock.getElapsedTime();
 
