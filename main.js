@@ -83,7 +83,8 @@ moon.position.x = 2;
 earth.add(moon);
 
 scene.add(sun);
-scene.add(earth);
+
+
 
 const planets = [
 	{
@@ -141,19 +142,49 @@ const planets = [
 	},
   ];
 
-const planetMeshes = planets.map((planet) => {
-	// create the mesh
-	const planetMesh = new THREE.Mesh(
-		sphereGeometry,
-		planet.material
-	)
-	// set the scale
+  const createPlanet = (planet) => {
+
+	
+
+	// create the mesh and add it to the scene
+	const planetMesh = new THREE.Mesh(sphereGeometry, planet.material);
 	planetMesh.scale.setScalar(planet.radius);
 	planetMesh.position.x = planet.distance;
+	return planetMesh;
+}
+
+const createMoon = (moon) => {
+	// create the mesh and add it to the scene
+	const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
+	moonMesh.scale.setScalar(moon.radius);
+	moonMesh.position.x = moon.distance;
+	return moonMesh;
+}  
+
+const planetMeshes = planets.map((planet) => {
+	// create the mesh
+	const planetMesh = createPlanet(planet);
+	scene.add(planetMesh)
 	// add it to our scene
 	// loop through each planet
-	scene.add(planetMesh);
+	//scene.add(planetMesh);
+
+	// accessing the moons
+	planet.moons.forEach((moon) => {
+		const moonMesh = createMoon(moon);
+		planetMesh.add(moonMesh);
+	// 	const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
+	// 	moonMesh.scale.setScalar(moon.radius);
+	// 	moonMesh.position.x = moon.distance;
+	// 	planetMesh.add(moonMesh);
+	})
+	
+
+	return planetMesh;
+	
 });
+
+console.log(planetMeshes);
 
 // add lights 
 const ambientLight = new THREE.AmbientLight (
