@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { step } from "three/examples/jsm/nodes/Nodes.js";
 import { Pane } from "tweakpane";
 
 // initialize pane
@@ -11,6 +12,9 @@ const scene = new THREE.Scene();
 // add textureLoader
 const textureLoader = new THREE.TextureLoader();
 
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+cubeTextureLoader.setPath('textures/Standard-Cube-Map/');
+
 // adding textures 
 const sunTexture = textureLoader.load('textures/2k_sun.jpg');
 const earthTexture = textureLoader.load('textures/2k_earth_daymap.jpg');
@@ -18,6 +22,21 @@ const marsTexture = textureLoader.load('textures/2k_mars.jpg');
 const mercuryTexture = textureLoader.load('textures/2k_mercury.jpg');
 const moonTexture = textureLoader.load('textures/2k_moon.jpg');
 const venusTexture = textureLoader.load('textures/2k_venus_surface.jpg');
+const backgroundTexture = textureLoader.load('textures/2k_stars_milky_way.jpg');
+
+const backgoundCubeMap = cubeTextureLoader.load(
+	[
+		'px.png',
+		'nx.png',
+		'py.png',
+		'ny.png',
+		'pz.png',
+		'nz.png'
+
+	]
+)
+
+scene.background = backgoundCubeMap;
 
 // add materials
 const mercuryMaterial = new THREE.MeshStandardMaterial( 
@@ -189,10 +208,23 @@ console.log(planetMeshes);
 // add lights 
 const ambientLight = new THREE.AmbientLight (
 	0xfffffff,
-	1
+	0.1
 );
 
 scene.add(ambientLight);
+
+// adding a point light to our scene so it looks like the light is coming from the sun
+const pointLight = new THREE.PointLight(
+	0xffffff,
+	1000
+);
+scene.add(pointLight);
+
+pane.addBinding(pointLight, 'intensity', {
+	min: 0,
+	max: 1000,
+	step: 1
+});
 
 // const testArray = planets.map((planet) => {
 // 	console.log(planet.name);
