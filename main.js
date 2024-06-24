@@ -16,7 +16,7 @@ const cubeTextureLoader = new THREE.CubeTextureLoader();
 cubeTextureLoader.setPath('static/textures/Standard-Cube-Map/');
 
 // adding textures 
-const sunTexture = textureLoader.load('static/textures/2k_sun.jpg');
+const sunTexture = textureLoader.load('.static/textures/2k_sun.jpg');
 const earthTexture = textureLoader.load('static/textures/2k_earth_daymap.jpg');
 const marsTexture = textureLoader.load('static/textures/2k_mars.jpg');
 const mercuryTexture = textureLoader.load('static/textures/2k_mercury.jpg');
