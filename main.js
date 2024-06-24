@@ -23,14 +23,32 @@ const envMap = cubeTextureLoader.load([
   "nz.png",
 ]);
 
-console.log(envMap);
-
 scene.background = envMap;
 
 const gltfLoader = new GLTFLoader();
-console.log(gltfLoader);
+gltfLoader.load('/models/boomBoxGLTF/BoomBox.gltf', 
+	// onLoad callback
+	(gltf) => {
+		const modelScene = gltf.scene;
+		modelScene.scale.setScalar(50);
+		scene.add(modelScene);
+	}
+);
+//console.log(model);
 
-// add stuff here
+// add lights
+const ambientLight = new THREE.AmbientLight(
+	0xffffff,
+	0.5
+);
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(
+	0xffffff,
+	0.5
+);
+
+scene.add(directionalLight);
 
 // initialize the camera
 const camera = new THREE.PerspectiveCamera(
