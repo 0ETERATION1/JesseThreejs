@@ -13,16 +13,16 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 
 const cubeTextureLoader = new THREE.CubeTextureLoader();
-cubeTextureLoader.setPath('/static/textures/Standard-Cube-Map/');
+cubeTextureLoader.setPath('static/textures/Standard-Cube-Map/');
 
 // adding textures 
-const sunTexture = textureLoader.load('/static/textures/2k_sun.jpg');
-const earthTexture = textureLoader.load('/static/textures/2k_earth_daymap.jpg');
-const marsTexture = textureLoader.load('/static/textures/2k_mars.jpg');
-const mercuryTexture = textureLoader.load('/static/textures/2k_mercury.jpg');
-const moonTexture = textureLoader.load('/static/textures/2k_moon.jpg');
-const venusTexture = textureLoader.load('/static/textures/2k_venus_surface.jpg');
-const backgroundTexture = textureLoader.load('/static/textures/2k_stars_milky_way.jpg');
+const sunTexture = textureLoader.load('static/textures/2k_sun.jpg');
+const earthTexture = textureLoader.load('static/textures/2k_earth_daymap.jpg');
+const marsTexture = textureLoader.load('static/textures/2k_mars.jpg');
+const mercuryTexture = textureLoader.load('static/textures/2k_mercury.jpg');
+const moonTexture = textureLoader.load('static/textures/2k_moon.jpg');
+const venusTexture = textureLoader.load('static/textures/2k_venus_surface.jpg');
+const backgroundTexture = textureLoader.load('static/textures/2k_stars_milky_way.jpg');
 
 const backgoundCubeMap = cubeTextureLoader.load(
 	[
