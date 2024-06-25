@@ -27,6 +27,16 @@ scene.background = envMap;
 
 const gltfLoader = new GLTFLoader();
 const model = await gltfLoader.loadAsync('/models/boomBoxGLTF/BoomBox.gltf');
+const material = model.scene.children[0].material;
+console.log(material);
+pane.addBinding(material, 'roughness', {
+	min: 0,
+	max: 1,
+	step: 0.01,
+});
+
+material.envMap = envMap;
+material.envMapIntensity = 5;
 model.scene.scale.setScalar(50);
 scene.add(model.scene);
 // gltfLoader.load('/models/boomBoxGLTF/BoomBox.gltf', 
