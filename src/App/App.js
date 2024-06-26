@@ -1,11 +1,18 @@
 import * as THREE from 'three';
 import Camera from './Camera.js';
 
+let instance = null;
+
 export default class App {
     constructor() {
-        const canvas = document.querySelector('canvas.threejs');
-        const scene = new THREE.Scene();
-        const camera = new Camera(canvas, scene);
-        console.log(camera)
+
+        // creating a singleton instance
+        if (instance) return instance;
+        instance = this;
+
+        this.canvas = document.querySelector('canvas.threejs');
+        this.scene = new THREE.Scene();
+        this.camera = new Camera();
+        //console.log(camera)
     }
 }

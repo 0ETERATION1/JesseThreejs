@@ -1,10 +1,13 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import App from './App.js';
 
 export default class Camera {
-    constructor(canvas, scene) {
-        this.canvas = canvas;
-        this.scene = scene;
+    constructor() {
+        // this.canvas = canvas;
+        // this.scene = scene;
+        this.app = new App()
+        this.canvas = this.app.canvas;
         this.setInstancee();
         this.setControls();
        
