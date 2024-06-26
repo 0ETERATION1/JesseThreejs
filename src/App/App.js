@@ -1,5 +1,7 @@
+import Camera from './Camera.js';
+
 export default class App {
     constructor() {
-        console.log('Constructing a class');
+        const camera = new Camera();
     }
 }
