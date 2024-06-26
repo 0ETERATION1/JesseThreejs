@@ -6,11 +6,20 @@ export default class World {
         this.app = new App();
         this.scene = this.app.scene;
 
-        const cubeMesh = new THREE.Mesh(
+        
+        this.setCube();
+    }
+
+    setCube() {
+        this.cubeMesh = new THREE.Mesh(
             new THREE.BoxGeometry(1,1,1),
             new THREE.MeshBasicMaterial({color: 0xff0000})
         );
 
-        this.scene.add(cubeMesh);
+        this.scene.add(this.cubeMesh);
+    }
+
+    loop() {
+        this.cubeMesh.rotation.y += 0.1;
     }
 }

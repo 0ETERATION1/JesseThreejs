@@ -23,6 +23,6 @@ export default class Renderer {
 
     loop() {
         this.instance.render(this.scene, this.camera.instance);
-        console.log('renderer is rendering')
+        
     }
 }
