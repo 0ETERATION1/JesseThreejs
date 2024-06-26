@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import Camera from './Camera.js';
 import Renderer from './Renderer.js';
 import Loop from './Utils/Loop.js';
+import World from './World/World.js';
 
 let instance = null;
 
@@ -17,6 +18,7 @@ export default class App {
         this.camera = new Camera();
         this.renderer = new Renderer();
         this.loop = new Loop();
+        this.world = new World();
         //console.log(camera)
     }
 }
