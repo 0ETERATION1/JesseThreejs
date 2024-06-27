@@ -29,7 +29,7 @@ body {
     color: white;
     background-color: transparent;
     font-size: 2rem;
-    font-family: 'Amatic SC';
+    font-family: 'Trattatello';
     opacity: 1;
     transition: opacity 1s;
 }
@@ -47,7 +47,7 @@ body {
     color: white;
     background-color: transparent;
     font-size: 4rem;
-    font-family: 'Amatic SC';
+    font-family: 'Trattatello';
     opacity: 0;
     transition: opacity 0.5s;
     display: none;
