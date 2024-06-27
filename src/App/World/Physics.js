@@ -11,14 +11,26 @@ export default class Physics {
             const gravity = {x: 0, y: -9.81, z: 0}
             this.world = new RAPIER.World(gravity);
             
-            // creating a mesh
+            // threejs code
             const geometry = new THREE.BoxGeometry(1,1,1);
             const material = new THREE.MeshStandardMaterial({color: 'blue'})
             this.cubeMesh = new THREE.Mesh(geometry, material);
+            this.cubeMesh.position.y = 20;
+            this.cubeMesh.rotation.x = 0.5;
+            this.cubeMesh.rotation.z = 0.5;
             this.scene.add(this.cubeMesh);
 
+            const groundGeometry = new THREE.BoxGeometry(10, 1, 10);
+            const groundMaterial = new THREE.MeshStandardMaterial({color: 'turquoise'});
+            this.groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+            this.scene.add(this.groundMesh);
+
+
+            // rapier code
             const rigidBodyType = RAPIER.RigidBodyDesc.dynamic();
             this.rigidBody = this.world.createRigidBody(rigidBodyType);
+            this.rigidBody.setTranslation(this.cubeMesh.position);
+            this.rigidBody.setRotation(this.cubeMesh.quaternion);
 
             const colliderType = RAPIER.ColliderDesc.cuboid(0.5, 0.5, 0.5);
             this.world.createCollider(colliderType, this.rigidBody);
@@ -40,11 +52,8 @@ export default class Physics {
         const position = this.rigidBody.translation();
         const rotation = this.rigidBody.rotation();
 
-        console.log(rotation);
-
-        // this.cubeMesh.position.copy(position);
-        // this.cubeMesh.quaternion.copy(rotation);
-        this.cubeMesh.position.set(position.x, position.y, position.z);
+        this.cubeMesh.position.copy(position);
+        this.cubeMesh.quaternion.copy(rotation);
 
         
 
