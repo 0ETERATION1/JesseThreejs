@@ -38,6 +38,11 @@ export default class Physics {
             const colliderType = RAPIER.ColliderDesc.cuboid(0.5, 0.5, 0.5);
             this.world.createCollider(colliderType, this.rigidBody);
 
+            const groundRigidBodyType = RAPIER.RigidBodyDesc.fixed();
+            this.groundRigidBody = this.world.createRigidBody(groundRigidBodyType);
+            const groundColliderType = RAPIER.ColliderDesc.cuboid(5, 0.5, 5);
+            this.world.createCollider(groundColliderType, this.groundRigidBody);
+
             this.rapierLoaded = true;
         } catch (error) {
             console.error('Error loading RAPIER:', error);
