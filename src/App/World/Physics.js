@@ -14,13 +14,40 @@ export default class Physics {
             // creating a mesh
             const geometry = new THREE.BoxGeometry(1,1,1);
             const material = new THREE.MeshStandardMaterial({color: 'blue'})
-            const cubeMesh = new THREE.Mesh(geometry, material);
-            this.scene.add(cubeMesh);
+            this.cubeMesh = new THREE.Mesh(geometry, material);
+            this.scene.add(this.cubeMesh);
 
+            const rigidBodyType = RAPIER.RigidBodyDesc.dynamic();
+            this.rigidBody = this.world.createRigidBody(rigidBodyType);
+
+            const colliderType = RAPIER.ColliderDesc.cuboid(0.5, 0.5, 0.5);
+            this.world.createCollider(colliderType, this.rigidBody);
+
+            this.rapierLoaded = true;
         })
     }
 
     loop() {
+
+        if(!this.rapierLoaded) {
+            
+            return;
+        }
+
+
+        this.world.step();
+
+        const position = this.rigidBody.translation();
+        const rotation = this.rigidBody.rotation();
+
+        console.log(rotation);
+
+        // this.cubeMesh.position.copy(position);
+        // this.cubeMesh.quaternion.copy(rotation);
+        this.cubeMesh.position.set(position.x, position.y, position.z);
+
+        
+
 
     }
 }
