@@ -5,6 +5,7 @@ import Loop from './Utils/Loop.js';
 import World from './World/World.js';
 import Resize from './Utils/Resize.js';
 import AssetLoader from './Utils/AssetLoader.js';
+import Preloader from './UI/Preloader.js';
 
 let instance = null
 
@@ -19,6 +20,9 @@ export default class App{
 
         // Asset Loader
         this.assetLoader = new AssetLoader();
+
+        // loading UI
+        this.preLoader = new Preloader();
         
         // World
         this.world = new World();
