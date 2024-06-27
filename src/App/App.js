@@ -4,24 +4,31 @@ import Renderer from './Renderer.js';
 import Loop from './Utils/Loop.js';
 import World from './World/World.js';
 import Resize from './Utils/Resize.js';
+import AssetLoader from './Utils/AssetLoader.js';
 
-let instance = null;
+let instance = null
 
-export default class App {
+export default class App{
     constructor() {
-
-        // creating a singleton instance
-        if (instance) return instance;
+        if(instance) return instance;
         instance = this;
 
-        this.canvas = document.querySelector('canvas.threejs');
+        // threejs elements
+        this.canvas = document.querySelector("canvas.threejs");
         this.scene = new THREE.Scene();
+
+        // Asset Loader
+        this.assetLoader = new AssetLoader();
+        
+        // World
+        this.world = new World();
+
+        // Camera and Renderer
         this.camera = new Camera();
         this.renderer = new Renderer();
-        this.world = new World();
+
+        // extra utils
         this.loop = new Loop();
         this.resize = new Resize();
-        
-        //console.log(camera)
     }
 }
