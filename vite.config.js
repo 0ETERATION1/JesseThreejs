@@ -10,6 +10,9 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, 'dist'), // Output directory for build files
     assetsDir: 'assets', // Directory within outDir to place assets
+    rollupOptions: {
+        treeshake: false, // Disable tree shaking
+    },
   },
   resolve: {
     alias: {
