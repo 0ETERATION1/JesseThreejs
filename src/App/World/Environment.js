@@ -6,10 +6,11 @@ export default class Environment{
     constructor() {
         this.app = new App()
         this.scene = this.app.scene
-        this.physics = this.app.world.physics;
+        this.physics = this.app.world.physics
         
         this.loadEnvironment()
-        this.addMeshes();
+        this.addGround()
+        this.addMeshes()
     }
 
     loadEnvironment() {
@@ -24,27 +25,49 @@ export default class Environment{
         this.scene.add(this.directionalLight);
     }
 
-    addMeshes() {
-        const geometry = new THREE.BoxGeometry(4, 4, 1);
-        const material = new THREE.MeshStandardMaterial({ color: 'blue' });
-        const material2 = new THREE.MeshStandardMaterial({ color: 'red' });
+    addGround() {
 
-        // mesh1
-        this.cubeMesh = new THREE.Mesh(geometry, material);
-        this.cubeMesh.position.y = 40;
-        this.cubeMesh.rotation.x = 1;
-        this.cubeMesh.rotation.z = 4;
-        this.scene.add(this.cubeMesh);
-        this.physics.add(this.cubeMesh);
-
-        // mesh2
-        this.cubeMesh2 = new THREE.Mesh(geometry, material2);
-        this.cubeMesh2.position.y = 50;
-        this.cubeMesh2.rotation.x = 3;
-        this.cubeMesh2.rotation.x = 0.5;
-        this.cubeMesh2.rotation.z = 0.5;
-        this.scene.add(this.cubeMesh2);
-        this.physics.add(this.cubeMesh2);
+        const groundGeometry = new THREE.BoxGeometry(100, 1, 100);
+        const groundMaterial = new THREE.MeshStandardMaterial({
+          color: "turquoise",
+        });
+        this.groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
+        this.scene.add(this.groundMesh);
+        this.physics.add(this.groundMesh, 'fixed', 'cuboid')
 
     }
+
+    addMeshes() {
+        // const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshStandardMaterial({
+            color: 'blue'
+        })
+
+        for (let i =0; i < 100; i++) {
+            const mesh = new THREE.Mesh(
+                geometry,
+                material
+            )
+            mesh.position.set(
+                (Math.random()- 0.5) * 10,
+                (Math.random() + 5) * 10,
+                (Math.random()- 0.5) * 10
+            )
+            // mesh.scale.set(
+            //     Math.random() + 0.5,
+            //     Math.random() + 0.5,
+            //     Math.random() + 0.5
+            // )
+            mesh.scale.setScalar(Math.random() + 0.5)
+            mesh.rotation.set(
+                Math.random() * Math.PI,
+                Math.random() * Math.PI,
+                Math.random() * Math.PI
+            )
+            this.scene.add(mesh)
+            this.physics.add(mesh, 'dynamic', 'ball')
+        }
+    }
+
 }
