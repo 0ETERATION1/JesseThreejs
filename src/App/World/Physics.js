@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import App from '../App.js';
 import { appStateStore } from '../Utils/Store.js';
+import { Vector3 } from '@dimforge/rapier3d';
 
 export default class Physics {
     constructor() {
@@ -45,8 +46,18 @@ export default class Physics {
         this.rigidBody.setTranslation(mesh.position, true);
         this.rigidBody.setRotation(mesh.quaternion, true);
 
+       
+
+        mesh.geometry.computeBoundingBox();
+        const size = mesh.geometry.boundingBox.getSize(new THREE.Vector3);
+        
+
         // autoCompute collider dimensions
-        const colliderType = this.rapier.ColliderDesc.cuboid(0.5, 0.5, 0.5);
+        const colliderType = this.rapier.ColliderDesc.cuboid(
+            size.x / 2,
+            size.y / 2,
+            size.z / 2,
+        );
         this.world.createCollider(colliderType, this.rigidBody);
 
         this.meshMap.set(mesh, this.rigidBody);
