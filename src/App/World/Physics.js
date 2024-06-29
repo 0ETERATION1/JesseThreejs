@@ -156,4 +156,4 @@ Computes the radius of a sphere collider for a given mesh
       mesh.quaternion.copy(rotation);
     });
   }
-}
+} 
