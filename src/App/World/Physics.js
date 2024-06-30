@@ -37,10 +37,16 @@ export default class Physics {
   add(mesh, type, collider) {
     // defining the rigid body type
     let rigidBodyType;
-    if (type === "dynamic") {
+    switch(type) {
+      case "dynamic":
       rigidBodyType = this.rapier.RigidBodyDesc.dynamic();
-    } else if (type === "fixed") {
+      break;
+    case "fixed":
       rigidBodyType = this.rapier.RigidBodyDesc.fixed();
+      break
+    case 'kinematic':
+      rigidBodyType = this.rapier.RigidBodyDesc.kinematicPositionBased();
+      break;
     }
     this.rigidBody = this.world.createRigidBody(rigidBodyType);
 
@@ -80,6 +86,7 @@ export default class Physics {
     this.rigidBody.setRotation(worldRotation);
 
     this.meshMap.set(mesh, this.rigidBody);
+    return this.rigidBody;
   }
 
   /**
@@ -156,4 +163,4 @@ Computes the radius of a sphere collider for a given mesh
       mesh.quaternion.copy(rotation);
     });
   }
-} 
+}
