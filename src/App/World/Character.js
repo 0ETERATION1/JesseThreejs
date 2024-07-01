@@ -54,7 +54,7 @@ export default class Character {
     this.characterController = this.physics.world.createCharacterController(0.01);
   }
 
-  loop() {
+  loop(deltaTime) {
     const movement = new THREE.Vector3();
     if (this.forward) {
         movement.z -= 1;
@@ -70,7 +70,7 @@ export default class Character {
     }
 
     // makes movement more realistic
-    movement.normalize().multiplyScalar(0.5);
+    movement.normalize().multiplyScalar(deltaTime * 20);
     this.characterController.computeColliderMovement(this.collider, movement); 
 
     const newPosition = new THREE.Vector3().copy(this.rigidBody.translation()).add(this.characterController.computedMovement());
