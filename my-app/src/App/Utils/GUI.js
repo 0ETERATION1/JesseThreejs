@@ -2,7 +2,8 @@ import { Pane } from 'tweakpane';
 
 export default class GUI {
     constructor() {
-        this.pane = new Pane();
+        // removed for cleanliness
+        // this.pane = new Pane();
     }
 
 }
