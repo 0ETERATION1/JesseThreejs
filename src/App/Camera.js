@@ -16,7 +16,7 @@ export default class Camera{
         this.sizes = this.sizesStore.getState()
 
         this.setInstance()
-        //this.setControls()
+        this.setControls()
         this.setResizeLister()
     }
 
@@ -45,6 +45,9 @@ export default class Camera{
 
 
     loop() {
+
+        this.controls.update()
+
         // doing 3rd person so camera sticks to our character
 
         // checking if character exists
@@ -53,8 +56,26 @@ export default class Camera{
 
         // updating camera if character exists
         if (this.character) {
-            this.instance.position.copy(this.character.translation());
+
+            // changing camera position so its above the avatar
+            const characterPosition = this.character.translation();
+            const characterRotation = this.character.rotation();
+            // cameraPosition.y += 10;
+            // cameraPosition.z += 60;
+
+            const cameraOffset = new THREE.Vector3(0, 30, 55);
+            cameraOffset.applyQuaternion(characterRotation);
+            cameraOffset.add(characterPosition);
+
+            const targetOffset = new THREE.Vector3(0, 10, 0);
+            targetOffset.applyQuaternion(characterRotation);
+            targetOffset.add(characterPosition);
+            
+
+            
+            this.instance.position.lerp(cameraOffset, 0.01);
+            this.controls.target.lerp(targetOffset, 0.01);
         }
-        //this.controls.update()
+        
     }
 }
