@@ -9,6 +9,7 @@ export default class Character {
     this.scene = this.app.scene;
     this.physics = this.app.world.physics;
 
+    // subscribe to input store
     inputStore.subscribe((state) => {
       this.forward = state.forward;
       this.backward = state.backward;
@@ -20,8 +21,8 @@ export default class Character {
   }
 
   instantiateCharacter() {
-    // const geometry = new THREE.BoxGeometry(2,2,2);
-    const geometry = new THREE.SphereGeometry(1, 32, 32);
+    // create a character in threejs
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
     const material = new THREE.MeshStandardMaterial({
       color: 0x00ff00,
       wireframe: true,
@@ -29,30 +30,54 @@ export default class Character {
     this.character = new THREE.Mesh(geometry, material);
     this.character.position.set(0, 2.5, 0);
     this.scene.add(this.character);
-    this.characterRigidBody = this.physics.add(
-      this.character,
-      "kinematic",
-      "ball"
+
+    // create a rigid body
+    this.rigidBodyType =
+      this.physics.rapier.RigidBodyDesc.kinematicPositionBased();
+    this.rigidBody = this.physics.world.createRigidBody(this.rigidBodyType);
+
+    // create a collider
+    this.colliderType = this.physics.rapier.ColliderDesc.cuboid(1, 1, 1);
+    this.collider = this.physics.world.createCollider(
+      this.colliderType,
+      this.rigidBody
     );
-    console.log(this.characterRigidBody);
+
+    // set rigid body position to character position
+    const worldPosition = this.character.getWorldPosition(new THREE.Vector3());
+    const worldRotation = this.character.getWorldQuaternion(
+      new THREE.Quaternion()
+    );
+    this.rigidBody.setTranslation(worldPosition);
+    this.rigidBody.setRotation(worldRotation);
+
+    this.characterController = this.physics.world.createCharacterController(0.01);
   }
 
   loop() {
-    let{ x, y, z} = this.characterRigidBody.translation()
-
+    const movement = new THREE.Vector3();
     if (this.forward) {
-      z = z - 0.1;
+        movement.z -= 1;
     }
     if (this.backward) {
-      z = z + 0.1;
+        movement.z += 1;
     }
     if (this.left) {
-      x = x - 0.1;
+        movement.x -= 1;
     }
     if (this.right) {
-      x = x + 0.1;
+        movement.x += 1;
     }
 
-    this.characterRigidBody.setNextKinematicTranslation({x, y, z});
+    // makes movement more realistic
+    movement.normalize().multiplyScalar(0.5);
+    this.characterController.computeColliderMovement(this.collider, movement); 
+
+    const newPosition = new THREE.Vector3().copy(this.rigidBody.translation()).add(this.characterController.computedMovement());
+
+    this.rigidBody.setNextKinematicTranslation(newPosition);
+
+    this.character.position.copy(this.rigidBody.translation());
+
   }
 }
