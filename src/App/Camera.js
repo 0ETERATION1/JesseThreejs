@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { sizesStore } from './Utils/Store.js';
+import Character from './World/Character.js';
 
 
 import App from './App.js'
@@ -15,7 +16,7 @@ export default class Camera{
         this.sizes = this.sizesStore.getState()
 
         this.setInstance()
-        this.setControls()
+        //this.setControls()
         this.setResizeLister()
     }
 
@@ -44,6 +45,16 @@ export default class Camera{
 
 
     loop() {
-        this.controls.update()
+        // doing 3rd person so camera sticks to our character
+
+        // checking if character exists
+        this.character = this.app.world.character?.rigidBody;
+        console.log(this.character)
+
+        // updating camera if character exists
+        if (this.character) {
+            this.instance.position.copy(this.character.translation());
+        }
+        //this.controls.update()
     }
 }

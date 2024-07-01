@@ -52,10 +52,19 @@ export default class Character {
     this.rigidBody.setRotation(worldRotation);
 
     this.characterController = this.physics.world.createCharacterController(0.01);
+
+    // applies physics to rigid bodies
+    this.characterController.setApplyImpulsesToDynamicBodies(true);
+
+    // be able to move up stairs
+    this.characterController.enableAutostep(3, 0.1, false);
+
+    // allows to go down a step
+    this.characterController.enableSnapToGround(1);
   }
 
   loop(deltaTime) {
-    const movement = new THREE.Vector3();
+    const movement = new THREE.Vector3(0, -1, 0);
     if (this.forward) {
         movement.z -= 1;
     }
@@ -71,6 +80,7 @@ export default class Character {
 
     // makes movement more realistic
     movement.normalize().multiplyScalar(deltaTime * 20);
+    movement.y = -1;
     this.characterController.computeColliderMovement(this.collider, movement); 
 
     const newPosition = new THREE.Vector3().copy(this.rigidBody.translation()).add(this.characterController.computedMovement());
